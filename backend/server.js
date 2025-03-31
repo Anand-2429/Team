@@ -1,6 +1,6 @@
-// import express from 'express';
-// import dotenv from 'dotenv';
-// import mongoose from 'mongoose';
+import express from 'express';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import cors from 'cors';
 // import userRoutes from './routes/userRoutes.js';
 import connectDB from './db.js';

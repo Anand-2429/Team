@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+
 import cors from 'cors';
 // import userRoutes from './routes/userRoutes.js';
 import connectDB from './db.js';
@@ -32,7 +32,7 @@ app.use(express.json());
 //   credentials: true,
 // };
 
-app.use(cors);
+// app.use(cors);
 
 // 🔹 Default Route
 
@@ -44,14 +44,31 @@ app.use(cors);
 // app.use('/api/admin', adminRoutes);
 // app.use('/api/reviews', reviewRoutes);
 
-app.get('/', (req, res) => {
-  res.send('✅ Server is Running...');
+app.get('/fetch', async(req, res) => {
+  const data = await User.find();
+  res.json(data);
 });
 app.post('/push', async (req, res) => {
+  console.log(req);
   const d = req.body;
-  const data = await User.insertOne(d);
+  console.log(d);
+  const data = await User.create(d);
   res.json(data);
 })
+app.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+console.log(id);
+  const data = await User.findByIdAndDelete(id);
+  res.json(data);
+})
+app.put("/update/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = await req.body;
+  console.log(data);
+  console.log(id);
+  const result = await User.findByIdAndUpdate(id,data,{new:true});
+  res.json(result);
+ })
 // 🔹 Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

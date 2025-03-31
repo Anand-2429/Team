@@ -1,6 +1,7 @@
 // db.js
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import User from './model/UserModel.js';
 dotenv.config();
 
 const connectDB = async () => {

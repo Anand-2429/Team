@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 // import userRoutes from './routes/userRoutes.js';
 import connectDB from './db.js';
+import User from './model/UserModel.js';
 // import shopRoutes from "./routes/shopRoutes.js";
 // import productRoutes from './routes/productRoutes.js';
 // import orderRoutes from './routes/orderRoutes.js';
@@ -46,7 +47,11 @@ app.use(cors);
 app.get('/', (req, res) => {
   res.send('✅ Server is Running...');
 });
-
+app.post('/push', async (req, res) => {
+  const d = req.body;
+  const data = await User.insertOne(d);
+  res.json(data);
+})
 // 🔹 Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
